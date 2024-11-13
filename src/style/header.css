@@ -1,0 +1,14 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    /* box-shadow: 0 2px 4px 0 rgba(0,0,0,.1); */
+}
+
+.logo{
+    height: 75px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
