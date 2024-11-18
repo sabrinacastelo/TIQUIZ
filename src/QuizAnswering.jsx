@@ -8,6 +8,7 @@ export default function QuizAnswering({ config }) {
   const [resultados, setResultados] = useState({});
   const [pontuacao, setPontuacao] = useState(0);
   const [quizFinalizado, setQuizFinalizado] = useState(false);
+  const [respostaSelecionada, setRespostaSelecionada] = useState(null);
 
   useEffect(() => {
     async function fetchPerguntas() {
@@ -29,49 +30,60 @@ export default function QuizAnswering({ config }) {
   }, [config]);
 
   useEffect(() => {
-    // Função para prevenir a saída da página enquanto o quiz não for finalizado
     const handleBeforeUnload = (event) => {
       if (!quizFinalizado) {
         event.preventDefault();
-        event.returnValue = ''; // Necessário para mostrar o aviso em navegadores modernos
+        event.returnValue = '';
       }
     };
 
-    // Adiciona o evento antes de sair
     window.addEventListener('beforeunload', handleBeforeUnload);
 
-    // Remove o evento ao finalizar o quiz ou desmontar o componente
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, [quizFinalizado]);
 
-  const handleAnswer = (perguntaId, respostaSelecionada, respostaCorreta, explicacao) => {
-    const isCorreta = respostaSelecionada === respostaCorreta;
-    
-    setResultados({
-      [perguntaId]: { correta: isCorreta, explicacao: explicacao }
-    });
-    
-    if (isCorreta) {
-      setPontuacao((prevPontuacao) => prevPontuacao + 10); // Incrementa a pontuação em 10 para cada resposta correta
+  const handleAnswer = (perguntaId, resposta, respostaCorreta, explicacao) => {
+    if (!respostaSelecionada) {  // Verifica se já foi selecionada uma resposta
+      const isCorreta = resposta === respostaCorreta;
+
+      setResultados({
+        [perguntaId]: { correta: isCorreta, explicacao: explicacao }
+      });
+      
+      if (isCorreta) {
+        setPontuacao((prevPontuacao) => prevPontuacao + 10);
+      }
+
+      setRespostaSelecionada(resposta); // Marca a resposta como selecionada
     }
   };
 
   const goToNextQuestion = () => {
     if (currentQuestionIndex < perguntas.length - 1) {
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-      setResultados({}); // Limpa o feedback ao avançar para a próxima pergunta
+      setRespostaSelecionada(null); // Limpa a resposta selecionada para a próxima pergunta
+      setResultados({});
     } else {
-      setQuizFinalizado(true); // Marca o quiz como finalizado quando chega à última pergunta
+      setQuizFinalizado(true);
     }
   };
 
   const currentQuestion = perguntas[currentQuestionIndex];
   const currentResult = resultados[currentQuestion?.id];
+  const progresso = ((currentQuestionIndex + 1) / perguntas.length) * 100;
 
   return (
     <div className="question-container">
+      {/* Barra de Progresso */}
+      <div className="progress-bar-container">
+        <div 
+          className="progress-bar" 
+          style={{ width: `${progresso}%` }}
+        ></div>
+      </div>
+
       {!quizFinalizado ? (
         currentQuestion && (
           <>
@@ -82,8 +94,9 @@ export default function QuizAnswering({ config }) {
                 .map((resposta, idx) => (
                   <li 
                     key={idx} 
-                    className="answer-item" 
+                    className={`answer-item ${respostaSelecionada ? 'disabled' : ''}`} 
                     onClick={() => handleAnswer(currentQuestion.id, resposta, currentQuestion.resposta_correta, currentQuestion.explicacao)}
+                    style={{ pointerEvents: respostaSelecionada ? 'none' : 'auto' }}
                   >
                     {resposta}
                   </li>
@@ -97,7 +110,11 @@ export default function QuizAnswering({ config }) {
               </div>
             )}
 
-            <button className="next-button" onClick={goToNextQuestion}>
+            <button 
+              className="next-button" 
+              onClick={goToNextQuestion}
+              disabled={!respostaSelecionada} // Desabilita o botão até que uma resposta seja selecionada
+            >
               {currentQuestionIndex < perguntas.length - 1 ? 'Próxima' : 'Finalizar Quiz'}
             </button>
           </>

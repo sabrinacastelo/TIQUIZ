@@ -1,17 +1,22 @@
 import './App.css';
+import Footer from './components/Footer';
 import Header from './components/Header';
+import Home from './pages/home/Home';
 import QuizForm from './Quizform';
-// import { Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <>
-      <Header />
-      <QuizForm />
-      {/* <Routes>
-        <Route path="/" element={<QuizForm />} />
-      </Routes> */}
-    </>
+    <Router>
+      <>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/quiz" element={<QuizForm />} />
+        </Routes>
+        <Footer />
+      </>
+    </Router>
   );
 }
 
