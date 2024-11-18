@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../src/style/quizform.css';
-import Welcome from '../src/images/welcome-robot.png'
+import Playing from '../src/images/playing-robot.png'
 
 export default function QuizSelect({ onStartQuiz }) {
   const [materias, setMaterias] = useState([]);
@@ -90,14 +90,14 @@ export default function QuizSelect({ onStartQuiz }) {
         />
 
         <button
-          className="quiz-button"
+          className="quiz-button-form"
           onClick={handleStartQuiz}
-          disabled={isStartDisabled}  // Botão desabilitado se alguma opção não estiver selecionada
+          disabled={isStartDisabled} 
         >
           Iniciar Quiz
         </button>
       </div>
-      <img src={Welcome} alt="" />
+      <img className='img-form' src={Playing} alt="" />
     </div>
   );
 }
