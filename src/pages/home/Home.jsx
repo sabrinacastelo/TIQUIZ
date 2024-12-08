@@ -8,6 +8,7 @@ import Bars from '../../components/Bars'
 import EndPage from '../../components/EndPage'
 
 
+
 function Home() {
     return (
         <>

@@ -45,8 +45,8 @@ export default function QuizSelect({ onStartQuiz }) {
           onChange={(e) => setMateriaSelecionada(e.target.value)}
           value={materiaSelecionada}
         >
-          <option value="">Selecione uma matéria</option>
-          <option value="aleatoria">Aleatória</option>
+          <option className="option" value="">Selecione uma matéria</option>
+          <option className="option" value="aleatoria">Aleatória</option>
           {materias.map((materia, index) => (
             <option key={index} value={materia}>
               {materia}
@@ -60,11 +60,11 @@ export default function QuizSelect({ onStartQuiz }) {
           onChange={(e) => setDificuldade(e.target.value)}
           value={dificuldade}
         >
-          <option value="">Selecione a dificuldade</option>
-          <option value="aleatoria">Aleatória</option>
-          <option value="facil">Fácil</option>
-          <option value="medio">Médio</option>
-          <option value="dificil">Difícil</option>
+          <option className="option" value="">Selecione a dificuldade</option>
+          <option className="option" value="aleatoria">Aleatória</option>
+          <option className="option" value="facil">Fácil</option>
+          <option className="option" value="medio">Médio</option>
+          <option className="option" value="dificil">Difícil</option>
         </select>
 
         <label className="quiz-label">Tipo:</label>
@@ -73,10 +73,10 @@ export default function QuizSelect({ onStartQuiz }) {
           onChange={(e) => setTipo(e.target.value)}
           value={tipo}
         >
-          <option value="">Selecione o tipo</option>
-          <option value="aleatoria">Aleatória</option>
-          <option value="bool">Booleano</option>
-          <option value="alternativa">Alternativa</option>
+          <option className="option" value="">Selecione o tipo</option>
+          <option className="option" value="aleatoria">Aleatória</option>
+          <option className="option" value="bool">Booleano</option>
+          <option className="option" value="alternativa">Alternativa</option>
         </select>
 
         <label className="quiz-label">Número de Questões:</label>
