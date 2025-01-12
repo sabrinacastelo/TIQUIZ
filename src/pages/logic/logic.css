@@ -1,0 +1,22 @@
+.things-2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.puzzle-robot{
+    height: 425px;
+    margin-right: 50px;
+}
+
+.txt-things{
+    margin-left: 50px;
+    font-family: 'Oxanium';
+}
+
+.p-things{
+    font-size: 20px;
+    color: #ffffff;
+    width: 90%;
+    justify-content: center;
+}

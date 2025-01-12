@@ -16,7 +16,7 @@ function Home() {
                 <img src={Welcome} className='welcome-img' alt='Welcome Robot' />
                 <div className="text-box">
                     <h1 className='title'>Uma ferramenta auxiliar para reforçar
-                        os conhecimentos adquiridos em sala de aula.</h1>
+                        os conhecimentos teóricos adquiridos em sala de aula.</h1>
                     <h3 className='subtitle'>Aprenda no seu próprio ritmo!</h3>
                     <br />
                     <NavLink to="/quiz" className='start'>Começar Quiz</NavLink>
